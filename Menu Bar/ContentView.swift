@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    var items: [MenuItemManifist] = Array(repeating: 0, count: 10).map{_ in MenuItemManifist(name: "Name", author: "Author", desc: "Description", id: UUID())}
+    
     var body: some View {
-        Text("Hello, world!")
+        VStack {
+            Text("Menu Bar")
+                .font(.largeTitle)
+                .fontWeight(.semibold)
+                .padding()
+            Text("Enabled Items")
+                .font(.body)
+            List(items) {
+                MenuItemView(manifist: $0)
+            }
+            .listStyle(.plain)
             .padding()
+        }
+        .frame(idealWidth: 800, maxWidth: .infinity, idealHeight: 600, maxHeight: .infinity)
     }
 }
 
