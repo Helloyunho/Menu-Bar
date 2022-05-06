@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FF0C328254BEA003E850D /* MenuItemModel.swift */; };
 		55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */; };
 		55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B727969F3D0024F6D1 /* ContentView.swift */; };
 		55D722BA27969F410024F6D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D722B927969F410024F6D1 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		550FF0C328254BEA003E850D /* MenuItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemModel.swift; sourceTree = "<group>"; };
 		55D722B227969F3D0024F6D1 /* Menu Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menu Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_BarApp.swift; sourceTree = "<group>"; };
 		55D722B727969F3D0024F6D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		55DCABEF28215AF200019485 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				550FF0C328254BEA003E850D /* MenuItemModel.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */,
 				55DCABEB2820F86200019485 /* MenuItemView.swift in Sources */,
 				55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */,
+				550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

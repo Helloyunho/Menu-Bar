@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var items: [MenuItemManifist] = Array(repeating: 0, count: 10).map{_ in MenuItemManifist(name: "Name", author: "Author", desc: "Description", id: UUID())}
+    @StateObject var menuItemModel = MenuItemModel()
     
     var body: some View {
         VStack {
@@ -18,8 +18,11 @@ struct ContentView: View {
                 .padding()
             Text("Enabled Items")
                 .font(.body)
-            List(items) {
-                MenuItemView(manifist: $0)
+            List(menuItemModel.items.indices, id: \.self) { idx in
+                HStack {
+                    Toggle("", isOn: $menuItemModel.items[idx].enabled)
+                    MenuItemView(manifist: menuItemModel.items[idx])
+                }
             }
             .listStyle(.plain)
             .padding()
