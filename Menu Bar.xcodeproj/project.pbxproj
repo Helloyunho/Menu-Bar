@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FF0C328254BEA003E850D /* MenuItemModel.swift */; };
+		551AAE9A283540480054C9C9 /* MenuItemManifistJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */; };
+		5530CA54282B3F3A004409E4 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 5530CA53282B3F3A004409E4 /* Zip */; };
 		55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */; };
 		55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B727969F3D0024F6D1 /* ContentView.swift */; };
 		55D722BA27969F410024F6D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D722B927969F410024F6D1 /* Assets.xcassets */; };
@@ -15,10 +17,12 @@
 		55DCABE7281EE72400019485 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 55DCABE6281EE72400019485 /* LICENSE */; };
 		55DCABEB2820F86200019485 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCABEA2820F86200019485 /* MenuItemView.swift */; };
 		55DCABEE28215A9000019485 /* MenuItemManifist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCABED28215A9000019485 /* MenuItemManifist.swift */; };
+		55E228DA2826999400DA5079 /* MenuItemInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E228D92826999400DA5079 /* MenuItemInterpreter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		550FF0C328254BEA003E850D /* MenuItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemModel.swift; sourceTree = "<group>"; };
+		551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemManifistJSON.swift; sourceTree = "<group>"; };
 		55D722B227969F3D0024F6D1 /* Menu Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menu Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_BarApp.swift; sourceTree = "<group>"; };
 		55D722B727969F3D0024F6D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +33,7 @@
 		55DCABE8281EE74300019485 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55DCABEA2820F86200019485 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		55DCABED28215A9000019485 /* MenuItemManifist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemManifist.swift; sourceTree = "<group>"; };
+		55E228D92826999400DA5079 /* MenuItemInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemInterpreter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5530CA54282B3F3A004409E4 /* Zip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				55DCABED28215A9000019485 /* MenuItemManifist.swift */,
+				551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				550FF0C328254BEA003E850D /* MenuItemModel.swift */,
+				55E228D92826999400DA5079 /* MenuItemInterpreter.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -117,12 +125,16 @@
 				55D722AE27969F3D0024F6D1 /* Sources */,
 				55D722AF27969F3D0024F6D1 /* Frameworks */,
 				55D722B027969F3D0024F6D1 /* Resources */,
+				5530CA55282CDC15004409E4 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Menu Bar";
+			packageProductDependencies = (
+				5530CA53282B3F3A004409E4 /* Zip */,
+			);
 			productName = "Menu Bar";
 			productReference = 55D722B227969F3D0024F6D1 /* Menu Bar.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +163,9 @@
 				Base,
 			);
 			mainGroup = 55D722A927969F3D0024F6D1;
+			packageReferences = (
+				5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */,
+			);
 			productRefGroup = 55D722B327969F3D0024F6D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -173,11 +188,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5530CA55282CDC15004409E4 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		55D722AE27969F3D0024F6D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551AAE9A283540480054C9C9 /* MenuItemManifistJSON.swift in Sources */,
+				55E228DA2826999400DA5079 /* MenuItemInterpreter.swift in Sources */,
 				55DCABEE28215A9000019485 /* MenuItemManifist.swift in Sources */,
 				55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */,
 				55DCABEB2820F86200019485 /* MenuItemView.swift in Sources */,
@@ -386,6 +424,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5530CA53282B3F3A004409E4 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55D722AA27969F3D0024F6D1 /* Project object */;
 }

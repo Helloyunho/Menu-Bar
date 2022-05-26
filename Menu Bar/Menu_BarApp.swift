@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItems[0].button?.title = "test"
         statusItems[1].button?.title = "test1"
     }
-    
+
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var menuItemModel = MenuItemModel()
-    
+
     var body: some View {
         VStack {
             Text("Menu Bar")
@@ -26,6 +26,9 @@ struct ContentView: View {
             }
             .listStyle(.plain)
             .padding()
+            .onDrop(of: [.zip], isTargeted: nil) { _ in
+                true
+            }
         }
         .frame(idealWidth: 800, maxWidth: .infinity, idealHeight: 600, maxHeight: .infinity)
     }

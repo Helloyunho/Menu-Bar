@@ -9,10 +9,10 @@ import SwiftUI
 
 struct MenuItemView: View {
     var manifist: MenuItemManifist
-    
+
     var body: some View {
         HStack {
-            if let appIcon = manifist.appIcon {
+            if let appIcon = manifist.icon {
                 Image(nsImage: appIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -41,7 +41,7 @@ struct MenuItemView: View {
 
 struct MenuItemView_Previews: PreviewProvider {
     static var testManifist = MenuItemManifist(name: "Name", author: "Author", desc: "Description", id: UUID())
-    
+
     static var previews: some View {
         MenuItemView(manifist: MenuItemView_Previews.testManifist)
     }
