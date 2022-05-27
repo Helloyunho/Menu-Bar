@@ -18,17 +18,39 @@ struct ContentView: View {
                 .padding()
             Text("Enabled Items")
                 .font(.body)
-            List(menuItemModel.items.indices, id: \.self) { idx in
-                HStack {
-                    Toggle("", isOn: $menuItemModel.items[idx].enabled)
-                    MenuItemView(manifist: menuItemModel.items[idx])
+            List {
+                if menuItemModel.items.isEmpty {
+                    Text("Drag something on here!")
+                } else {
+                    ForEach(menuItemModel.items.indices, id: \.self) { idx in
+                        HStack {
+                            Toggle("", isOn: $menuItemModel.items[idx].enabled)
+                            MenuItemView(manifist: menuItemModel.items[idx])
+                        }
+                    }
                 }
             }
             .listStyle(.plain)
             .padding()
-            .onDrop(of: [.zip], isTargeted: nil) { _ in
-                true
+        }
+        .onDrop(of: [.zip], isTargeted: nil) { items in
+            print(items)
+            Task {
+                var converted = [URL]()
+                for item in items {
+                    let itemConverted: URL = try await item.loadItem(forTypeIdentifier: "public.zip-archive") as! NSURL as URL
+                    converted.append(itemConverted)
+                }
+                menuItemModel.errorWrapper {
+                    try menuItemModel.loadItems(items: converted)
+                }
             }
+            return true
+        }
+        .alert(isPresented: $menuItemModel.errorAlert) {
+            Alert(title: Text("Error"),
+                  message: Text(menuItemModel.errorContent!.localizedDescription),
+                  dismissButton: .default(Text("OK")))
         }
         .frame(idealWidth: 800, maxWidth: .infinity, idealHeight: 600, maxHeight: .infinity)
     }

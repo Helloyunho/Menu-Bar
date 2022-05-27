@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FF0C328254BEA003E850D /* MenuItemModel.swift */; };
+		5518E620283F65E70071BC9D /* MenuBarErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518E61F283F65E70071BC9D /* MenuBarErrors.swift */; };
 		551AAE9A283540480054C9C9 /* MenuItemManifistJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */; };
 		5530CA54282B3F3A004409E4 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 5530CA53282B3F3A004409E4 /* Zip */; };
 		55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */; };
@@ -22,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		550FF0C328254BEA003E850D /* MenuItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemModel.swift; sourceTree = "<group>"; };
+		5518E61F283F65E70071BC9D /* MenuBarErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarErrors.swift; sourceTree = "<group>"; };
+		5518E621283F68630071BC9D /* Menu-Bar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Menu-Bar-Info.plist"; sourceTree = SOURCE_ROOT; };
 		551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemManifistJSON.swift; sourceTree = "<group>"; };
 		55D722B227969F3D0024F6D1 /* Menu Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menu Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_BarApp.swift; sourceTree = "<group>"; };
@@ -48,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5518E61E283F65D50071BC9D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				5518E61F283F65E70071BC9D /* MenuBarErrors.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		55D722A927969F3D0024F6D1 = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +80,9 @@
 		55D722B427969F3D0024F6D1 /* Menu Bar */ = {
 			isa = PBXGroup;
 			children = (
+				5518E621283F68630071BC9D /* Menu-Bar-Info.plist */,
 				55DCABEF28215AF200019485 /* Classes */,
+				5518E61E283F65D50071BC9D /* Enums */,
 				55DCABEC28215A7C00019485 /* Structs */,
 				55DCABE92820F84400019485 /* Components */,
 				55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */,
@@ -219,6 +232,7 @@
 				55DCABEE28215A9000019485 /* MenuItemManifist.swift in Sources */,
 				55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */,
 				55DCABEB2820F86200019485 /* MenuItemView.swift in Sources */,
+				5518E620283F65E70071BC9D /* MenuBarErrors.swift in Sources */,
 				55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */,
 				550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */,
 			);
@@ -357,6 +371,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Menu-Bar-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -387,6 +402,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Menu-Bar-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

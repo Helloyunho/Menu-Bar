@@ -24,12 +24,16 @@ struct MenuItemManifist: Identifiable {
         }
     }
 
-    init(name: String, author: String, desc: String, id: UUID, appIcon: NSImage? = nil, enabled: Bool = false) {
+    init(name: String, author: String, desc: String, icon: NSImage? = nil, enabled: Bool = false) {
+        self.init(name: name, author: author, desc: desc, id: UUID(), icon: icon, enabled: enabled)
+    }
+
+    init(name: String, author: String, desc: String, id: UUID, icon: NSImage? = nil, enabled: Bool = false) {
         self.name = name
         self.author = author
         self.desc = desc
         self.id = id
-        self.icon = appIcon
+        self.icon = icon
         self._enabled = enabled
     }
 }

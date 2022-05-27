@@ -9,33 +9,53 @@ import Foundation
 import Zip
 
 class MenuItemModel: ObservableObject {
-    @Published var items: [MenuItemManifist]
+    @Published var items = [MenuItemManifist]()
+    @Published var errorAlert = false
+    var errorContent: Error? = nil
     private let defaultItemPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("plugins", isDirectory: true)
     
     init() {
-        let items = Array(repeating: 0, count: 10).map { _ in MenuItemManifist(name: "Name", author: "Author", desc: "Description", id: UUID()) }
-        self.items = items
-        for idx in 0 ..< 5 {
-            self.items[idx].enabled = true
+        self.errorWrapper {
+            try self.loadItems()
         }
     }
     
-    func loadItems() async throws {
+    func loadItems() throws {
         try FileManager.default.createDirectory(at: defaultItemPath, withIntermediateDirectories: true)
         let items = try FileManager.default.contentsOfDirectory(at: defaultItemPath, includingPropertiesForKeys: nil)
         for item in items {
-            
+            try self.loadItem(url: item)
         }
     }
     
-    func loadItem(url: URL) async throws {
+    func loadItem(url: URL) throws {
+        guard let id = UUID(uuidString: url.lastPathComponent) else {
+            throw MenuBarError.directoryUUID
+        }
         
+        let manifistPath = url.appendingPathComponent("manifist").appendingPathExtension("json")
+        
+        let decoder = JSONDecoder()
+        let manifistJSON = try decoder.decode(MenuItemManifistJSON.self, from: Data(contentsOf: manifistPath))
+        let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id)
+        self.items.append(manifist)
     }
     
-    func loadItems(items: [URL]) async throws {
-//        for item in items {
-//            let itemConverted: URL = try await item.loadItem(forTypeIdentifier: "public.zip-archive") as! NSURL as URL
-//            try Zip.unzipFile(itemConverted)
-//        }
+    func loadItems(items: [URL]) throws {
+        for item in items {
+            let id = UUID()
+            let dest = defaultItemPath.appendingPathComponent(id.uuidString, isDirectory: true)
+            try Zip.unzipFile(item, destination: dest, overwrite: false, password: nil)
+            try self.loadItem(url: dest)
+        }
+    }
+    
+    func errorWrapper(action: () throws -> Void) {
+        do {
+            try action()
+        } catch {
+            self.errorContent = error
+            self.errorAlert = true
+        }
     }
 }
