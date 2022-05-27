@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "MenuItemModel.loadItem(url:):MenuItemModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "manifistPath.path">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

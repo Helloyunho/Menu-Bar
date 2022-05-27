@@ -25,7 +25,7 @@ struct ZipDropDelegate: DropDelegate {
                 }
             }
             model.errorWrapper {
-                try model.loadItems(items: converted)
+                model.loadItems(items: converted)
             }
         }
         return true

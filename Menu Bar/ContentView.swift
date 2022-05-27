@@ -20,7 +20,7 @@ struct ContentView: View {
                 .font(.body)
             List {
                 if menuItemModel.items.isEmpty {
-                    Text("Drag something on here!")
+                    Text("You have no items right now. Find some menu items and drop on here!")
                 } else {
                     ForEach(menuItemModel.items.indices, id: \.self) { idx in
                         HStack {
@@ -36,7 +36,7 @@ struct ContentView: View {
         .onDrop(of: [.zip, .fileURL], delegate: ZipDropDelegate(model: menuItemModel))
         .alert(isPresented: $menuItemModel.errorAlert) {
             Alert(title: Text("Error"),
-                  message: Text(menuItemModel.errorContent!.localizedDescription),
+                  message: Text(menuItemModel.getErrorMessage()),
                   dismissButton: .default(Text("OK")))
         }
         .frame(idealWidth: 800, maxWidth: .infinity, idealHeight: 600, maxHeight: .infinity)
