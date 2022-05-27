@@ -33,20 +33,7 @@ struct ContentView: View {
             .listStyle(.plain)
             .padding()
         }
-        .onDrop(of: [.zip], isTargeted: nil) { items in
-            print(items)
-            Task {
-                var converted = [URL]()
-                for item in items {
-                    let itemConverted: URL = try await item.loadItem(forTypeIdentifier: "public.zip-archive") as! NSURL as URL
-                    converted.append(itemConverted)
-                }
-                menuItemModel.errorWrapper {
-                    try menuItemModel.loadItems(items: converted)
-                }
-            }
-            return true
-        }
+        .onDrop(of: [.zip, .fileURL], delegate: ZipDropDelegate(model: menuItemModel))
         .alert(isPresented: $menuItemModel.errorAlert) {
             Alert(title: Text("Error"),
                   message: Text(menuItemModel.errorContent!.localizedDescription),

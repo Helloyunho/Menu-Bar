@@ -12,7 +12,7 @@ class MenuItemModel: ObservableObject {
     @Published var items = [MenuItemManifist]()
     @Published var errorAlert = false
     var errorContent: Error? = nil
-    private let defaultItemPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("plugins", isDirectory: true)
+    private let defaultItemPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Menu Bar").appendingPathComponent("plugins", isDirectory: true)
     
     init() {
         self.errorWrapper {
@@ -34,10 +34,13 @@ class MenuItemModel: ObservableObject {
         }
         
         let manifistPath = url.appendingPathComponent("manifist").appendingPathExtension("json")
+        if !FileManager.default.fileExists(atPath: manifistPath.absoluteString) {
+            throw MenuBarError.manifistFileNotFound
+        }
         
         let decoder = JSONDecoder()
         let manifistJSON = try decoder.decode(MenuItemManifistJSON.self, from: Data(contentsOf: manifistPath))
-        let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id)
+        let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id, script: manifistJSON.script)
         self.items.append(manifist)
     }
     
@@ -56,6 +59,23 @@ class MenuItemModel: ObservableObject {
         } catch {
             self.errorContent = error
             self.errorAlert = true
+        }
+    }
+    
+    func getErrorMessage() -> String {
+        guard let errorContent = errorContent else {
+            return "I don't know... You weren't supposed to see this message..."
+        }
+        
+        switch errorContent {
+        case MenuBarError.directoryUUID:
+            return "Some directories' name are not valid UUID."
+        case MenuBarError.manifistFileNotFound:
+            return "Manifist JSON could not be found."
+        case is DecodingError:
+            return "Failed to parse manifist JSON. \(String(describing: errorContent))"
+        default:
+            return errorContent.localizedDescription
         }
     }
 }

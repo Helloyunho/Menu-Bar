@@ -9,5 +9,5 @@ import Foundation
 
 enum MenuBarError: Error {
     case directoryUUID
-    case manifistParseError(DecodingError?)
+    case manifistFileNotFound
 }

@@ -14,6 +14,7 @@ struct MenuItemManifist: Identifiable {
     var desc: String
     var icon: NSImage?
     var id: UUID
+    var mainScript: String = "index.js"
     private var _enabled: Bool = false
     var enabled: Bool {
         get {
@@ -24,16 +25,19 @@ struct MenuItemManifist: Identifiable {
         }
     }
 
-    init(name: String, author: String, desc: String, icon: NSImage? = nil, enabled: Bool = false) {
-        self.init(name: name, author: author, desc: desc, id: UUID(), icon: icon, enabled: enabled)
+    init(name: String, author: String, desc: String, icon: NSImage? = nil, script mainScript: String? = "index.js", enabled: Bool = false) {
+        self.init(name: name, author: author, desc: desc, id: UUID(), icon: icon, script: mainScript, enabled: enabled)
     }
 
-    init(name: String, author: String, desc: String, id: UUID, icon: NSImage? = nil, enabled: Bool = false) {
+    init(name: String, author: String, desc: String, id: UUID, icon: NSImage? = nil, script mainScript: String? = "index.js", enabled: Bool = false) {
         self.name = name
         self.author = author
         self.desc = desc
         self.id = id
         self.icon = icon
+        if let mainScript = mainScript {
+            self.mainScript = mainScript
+        }
         self._enabled = enabled
     }
 }

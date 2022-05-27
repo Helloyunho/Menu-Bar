@@ -12,4 +12,5 @@ struct MenuItemManifistJSON: Codable {
     var icon: URL?
     var author: String
     var desc: String
+    var script: String?
 }
