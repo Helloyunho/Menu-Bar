@@ -10,4 +10,5 @@ import Foundation
 enum MenuBarError: Error {
     case directoryUUID
     case manifistFileNotFound
+    case scriptFileNotFound
 }
