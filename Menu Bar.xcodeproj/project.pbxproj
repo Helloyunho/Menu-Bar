@@ -10,6 +10,8 @@
 		550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FF0C328254BEA003E850D /* MenuItemModel.swift */; };
 		5518E620283F65E70071BC9D /* MenuBarErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518E61F283F65E70071BC9D /* MenuBarErrors.swift */; };
 		5518E62328406FB80071BC9D /* ZipDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518E62228406FB80071BC9D /* ZipDropDelegate.swift */; };
+		5518E626284261120071BC9D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 5518E625284261120071BC9D /* Defaults */; };
+		5518E629284261570071BC9D /* Defaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518E628284261570071BC9D /* Defaults+Extensions.swift */; };
 		551AAE9A283540480054C9C9 /* MenuItemManifistJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */; };
 		5530CA54282B3F3A004409E4 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 5530CA53282B3F3A004409E4 /* Zip */; };
 		55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */; };
@@ -27,6 +29,7 @@
 		5518E61F283F65E70071BC9D /* MenuBarErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarErrors.swift; sourceTree = "<group>"; };
 		5518E621283F68630071BC9D /* Menu-Bar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Menu-Bar-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5518E62228406FB80071BC9D /* ZipDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipDropDelegate.swift; sourceTree = "<group>"; };
+		5518E628284261570071BC9D /* Defaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Extensions.swift"; sourceTree = "<group>"; };
 		551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemManifistJSON.swift; sourceTree = "<group>"; };
 		55D722B227969F3D0024F6D1 /* Menu Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menu Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_BarApp.swift; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5518E626284261120071BC9D /* Defaults in Frameworks */,
 				5530CA54282B3F3A004409E4 /* Zip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +63,14 @@
 				5518E61F283F65E70071BC9D /* MenuBarErrors.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		5518E627284261410071BC9D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5518E628284261570071BC9D /* Defaults+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		55D722A927969F3D0024F6D1 = {
@@ -85,6 +97,7 @@
 				5518E621283F68630071BC9D /* Menu-Bar-Info.plist */,
 				55DCABEF28215AF200019485 /* Classes */,
 				5518E61E283F65D50071BC9D /* Enums */,
+				5518E627284261410071BC9D /* Extensions */,
 				55DCABEC28215A7C00019485 /* Structs */,
 				55DCABE92820F84400019485 /* Components */,
 				55D722B527969F3D0024F6D1 /* Menu_BarApp.swift */,
@@ -150,6 +163,7 @@
 			name = "Menu Bar";
 			packageProductDependencies = (
 				5530CA53282B3F3A004409E4 /* Zip */,
+				5518E625284261120071BC9D /* Defaults */,
 			);
 			productName = "Menu Bar";
 			productReference = 55D722B227969F3D0024F6D1 /* Menu Bar.app */;
@@ -181,6 +195,7 @@
 			mainGroup = 55D722A927969F3D0024F6D1;
 			packageReferences = (
 				5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */,
+				5518E624284261110071BC9D /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = 55D722B327969F3D0024F6D1 /* Products */;
 			projectDirPath = "";
@@ -237,6 +252,7 @@
 				55D722B827969F3D0024F6D1 /* ContentView.swift in Sources */,
 				55DCABEB2820F86200019485 /* MenuItemView.swift in Sources */,
 				5518E620283F65E70071BC9D /* MenuBarErrors.swift in Sources */,
+				5518E629284261570071BC9D /* Defaults+Extensions.swift in Sources */,
 				55D722B627969F3D0024F6D1 /* Menu_BarApp.swift in Sources */,
 				550FF0C428254BEA003E850D /* MenuItemModel.swift in Sources */,
 			);
@@ -446,6 +462,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5518E624284261110071BC9D /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.1;
+			};
+		};
 		5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
@@ -457,6 +481,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5518E625284261120071BC9D /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5518E624284261110071BC9D /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
 		5530CA53282B3F3A004409E4 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5530CA52282B3F3A004409E4 /* XCRemoteSwiftPackageReference "Zip" */;

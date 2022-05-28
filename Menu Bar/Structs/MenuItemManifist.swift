@@ -7,6 +7,7 @@
 
 import AppKit
 import Foundation
+import Defaults
 
 struct MenuItemManifist: Identifiable {
     var name: String
@@ -21,6 +22,11 @@ struct MenuItemManifist: Identifiable {
             return self._enabled
         }
         set(value) {
+            if value {
+                Defaults[.enabledItems].insert(self.id)
+            } else {
+                Defaults[.enabledItems].remove(self.id)
+            }
             self._enabled = value
         }
     }

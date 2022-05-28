@@ -7,6 +7,7 @@
 
 import Foundation
 import Zip
+import Defaults
 
 class MenuItemModel: ObservableObject {
     @Published var items = [MenuItemManifist]()
@@ -44,7 +45,8 @@ class MenuItemModel: ObservableObject {
         
         let decoder = JSONDecoder()
         let manifistJSON = try decoder.decode(MenuItemManifistJSON.self, from: Data(contentsOf: manifistPath))
-        let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id, script: manifistJSON.script)
+        let enabled = Defaults[.enabledItems].contains(id)
+        let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id, script: manifistJSON.script, enabled: enabled)
         self.items.append(manifist)
     }
 
