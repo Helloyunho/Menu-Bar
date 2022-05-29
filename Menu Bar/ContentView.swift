@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var menuItemModel = MenuItemModel()
+    @StateObject var menuItemModel = MenuItemModel.shared
+    @State var selectedItem: MenuItemManifist? = nil
 
     var body: some View {
         VStack {
@@ -26,7 +27,19 @@ struct ContentView: View {
                         HStack {
                             Toggle("", isOn: $menuItemModel.items[idx].enabled)
                             MenuItemView(manifist: menuItemModel.items[idx])
+                            Spacer()
                         }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedItem = menuItemModel.items[idx]
+                        }
+                        .contextMenu {
+                            Button("Delete") {
+                                menuItemModel.deleteItem(item: menuItemModel.items[idx])
+                            }
+                        }
+                        .padding([.leading])
+                        .background(selectedItem == menuItemModel.items[idx] ? Color.accentColor : Color.clear)
                     }
                 }
             }
@@ -36,7 +49,7 @@ struct ContentView: View {
         .onDrop(of: [.zip, .fileURL], delegate: ZipDropDelegate(model: menuItemModel))
         .alert(isPresented: $menuItemModel.errorAlert) {
             Alert(title: Text("Error"),
-                  message: Text(menuItemModel.getErrorMessage()),
+                  message: Text(MenuItemModel.getErrorMessage(errorContent: self.menuItemModel.errorContent)),
                   dismissButton: .default(Text("OK")))
         }
         .frame(idealWidth: 800, maxWidth: .infinity, idealHeight: 600, maxHeight: .infinity)

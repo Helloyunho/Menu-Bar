@@ -28,11 +28,16 @@ struct MenuItemView: View {
                     Text(manifist.name)
                     Text(manifist.author)
                         .font(.footnote)
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.secondary)
+                    if let error = manifist.error {
+                        Image(systemName: "exclamationmark.circle")
+                            .foregroundColor(.red)
+                            .help(MenuItemModel.getErrorMessage(errorContent: error))
+                    }
                 }
                 Text(manifist.desc)
                     .font(.caption)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(Color.secondary)
             }
         }
         .padding()

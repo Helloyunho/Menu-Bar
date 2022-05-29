@@ -8,12 +8,17 @@
 import Foundation
 import Zip
 import Defaults
+import Combine
+
+let defaultItemPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Menu Bar", isDirectory: true).appendingPathComponent("plugins", isDirectory: true)
 
 class MenuItemModel: ObservableObject {
     @Published var items = [MenuItemManifist]()
     @Published var errorAlert = false
     var errorContent: Error? = nil
-    private let defaultItemPath = try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Menu Bar", isDirectory: true).appendingPathComponent("plugins", isDirectory: true)
+    var anyCancellables = [AnyCancellable]()
+    
+    static var shared = MenuItemModel()
     
     init() {
         self.errorWrapper {
@@ -47,6 +52,9 @@ class MenuItemModel: ObservableObject {
         let manifistJSON = try decoder.decode(MenuItemManifistJSON.self, from: Data(contentsOf: manifistPath))
         let enabled = Defaults[.enabledItems].contains(id)
         let manifist = MenuItemManifist(name: manifistJSON.name, author: manifistJSON.author, desc: manifistJSON.desc, id: id, script: manifistJSON.script, enabled: enabled)
+        self.anyCancellables.append(manifist.objectWillChange.sink { [weak self] (_) in
+            self?.objectWillChange.send()
+        })
         self.items.append(manifist)
     }
 
@@ -60,6 +68,14 @@ class MenuItemModel: ObservableObject {
             }
         }
     }
+
+    func deleteItem(item: MenuItemManifist) {
+        item.disableItem()
+        self.items.removeAll { i in
+            i == item
+        }
+        try? FileManager.default.removeItem(at: defaultItemPath.appendingPathComponent(item.id.uuidString, isDirectory: true))
+    }
     
     func errorWrapper(action: () throws -> Void) {
         do {
@@ -70,7 +86,7 @@ class MenuItemModel: ObservableObject {
         }
     }
     
-    func getErrorMessage() -> String {
+    static func getErrorMessage(errorContent: Error?) -> String {
         guard let errorContent = errorContent else {
             return "I don't know... You weren't supposed to see this message..."
         }
@@ -80,6 +96,10 @@ class MenuItemModel: ObservableObject {
             return "Some directories' name are not valid UUID."
         case MenuBarError.manifistFileNotFound:
             return "Manifist JSON could not be found."
+        case MenuBarError.scriptFileNotFound:
+            return "Script file could not be found."
+        case MenuBarError.jsError(let error):
+            return "JS Error: \(error)"
         case is DecodingError:
             return "Failed to parse manifist JSON. \(String(describing: errorContent))"
         default:

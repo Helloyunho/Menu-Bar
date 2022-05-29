@@ -27,33 +27,33 @@ class MenuItemInterpreter {
         let jscontext = JSContext(virtualMachine: vm)
         self.jscontext = jscontext!
         self.jsVM = vm
+        self.scriptURL = script
+        self.scriptDirURL = script.deletingLastPathComponent()
         
         let requireBlock: @convention(block) (String) -> (JSValue?) = { module in
-            let expandedModule = NSString(string: module).expandingTildeInPath
-            if let cachedModule = vm.cachedModules[expandedModule] {
+            let expandedModule = URL(fileURLWithPath: module, relativeTo: script.deletingLastPathComponent())
+            if let cachedModule = vm.cachedModules[expandedModule.path] {
                 return cachedModule
             }
             
-            if !FileManager.default.fileExists(atPath: expandedModule) {
+            if !FileManager.default.fileExists(atPath: expandedModule.path) {
                 jscontext!.exception = JSValue(newErrorFromMessage: "Module \(expandedModule) not found.", in: jscontext)
                 return nil
             }
             
-            let context = MenuItemInterpreter(script: URL(fileURLWithPath: expandedModule), vm: vm)
-            let value = try! context.runScript()
-            context.jscontext.globalObject.objectForKeyedSubscript("exports")
-            vm.cachedModules[expandedModule] = value
-            return value
+            let context = MenuItemInterpreter(script: expandedModule, vm: vm)
+            _ = try! context.runScript()
+            return context.jscontext.globalObject.objectForKeyedSubscript("exports")
         }
 
         self.jscontext.globalObject.setObject([:], forKeyedSubscript: "exports")
         self.jscontext.globalObject.setObject(requireBlock, forKeyedSubscript: "require")
-        self.scriptURL = script
-        self.scriptDirURL = script.deletingLastPathComponent()
     }
 
     func runScript(code: String, path: String) -> JSValue! {
-        return self.jscontext.evaluateScript(code, withSourceURL: URL(fileURLWithPath: path))
+        let result = self.jscontext.evaluateScript(code, withSourceURL: URL(fileURLWithPath: path))
+        self.jsVM.cachedModules[path] = result
+        return result
     }
     
     func runScript(path: String) throws -> JSValue! {

@@ -11,4 +11,5 @@ enum MenuBarError: Error {
     case directoryUUID
     case manifistFileNotFound
     case scriptFileNotFound
+    case jsError(String)
 }

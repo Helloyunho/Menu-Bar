@@ -128,7 +128,6 @@
 		55DCABEC28215A7C00019485 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				55DCABED28215A9000019485 /* MenuItemManifist.swift */,
 				551AAE99283540480054C9C9 /* MenuItemManifistJSON.swift */,
 				5518E62228406FB80071BC9D /* ZipDropDelegate.swift */,
 			);
@@ -139,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				550FF0C328254BEA003E850D /* MenuItemModel.swift */,
+				55DCABED28215A9000019485 /* MenuItemManifist.swift */,
 				55E228D92826999400DA5079 /* MenuItemInterpreter.swift */,
 			);
 			path = Classes;
