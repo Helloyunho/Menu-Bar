@@ -32,6 +32,7 @@ struct MenuItemView: View {
                     if let error = manifist.error {
                         Image(systemName: "exclamationmark.circle")
                             .foregroundColor(.red)
+                            .contentShape(Circle())
                             .help(MenuItemModel.getErrorMessage(errorContent: error))
                     }
                 }

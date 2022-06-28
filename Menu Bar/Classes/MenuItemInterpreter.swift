@@ -10,7 +10,12 @@ import Foundation
 import JavaScriptCore
 
 class JSVMWithModuleCache: JSVirtualMachine {
-    var cachedModules = [String: JSValue?]()
+    var cachedModules: [String: Any] = [:]
+    
+    override init!() {
+        super.init()
+        cachedModules["menuBar"] = MenuBarJS()
+    }
 }
 
 class MenuItemInterpreter {
@@ -30,20 +35,26 @@ class MenuItemInterpreter {
         self.scriptURL = script
         self.scriptDirURL = script.deletingLastPathComponent()
         
-        let requireBlock: @convention(block) (String) -> (JSValue?) = { module in
-            let expandedModule = URL(fileURLWithPath: module, relativeTo: script.deletingLastPathComponent())
-            if let cachedModule = vm.cachedModules[expandedModule.path] {
+        let requireBlock: @convention(block) (String) -> (Any?) = { module in
+            if let cachedModule = vm.cachedModules[module] {
                 return cachedModule
             }
-            
+
+            let expandedModule = URL(fileURLWithPath: module, relativeTo: script.deletingLastPathComponent())
+            if let cachedModule = vm.cachedModules[module] {
+                return cachedModule
+            }
+
             if !FileManager.default.fileExists(atPath: expandedModule.path) {
                 jscontext!.exception = JSValue(newErrorFromMessage: "Module \(expandedModule) not found.", in: jscontext)
                 return nil
             }
-            
+
             let context = MenuItemInterpreter(script: expandedModule, vm: vm)
             _ = try! context.runScript()
-            return context.jscontext.globalObject.objectForKeyedSubscript("exports")
+            let exported = context.jscontext.globalObject.objectForKeyedSubscript("exports")
+            vm.cachedModules[expandedModule.path] = exported
+            return exported
         }
 
         self.jscontext.globalObject.setObject([:], forKeyedSubscript: "exports")

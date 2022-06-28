@@ -80,6 +80,7 @@ class MenuItemManifist: Identifiable, Equatable, ObservableObject {
     func exceptionHandler(_: JSContext?, _ error: JSValue?) {
         if let error = error {
             self.error = MenuBarError.jsError(error.toString())
+            logger.error("\(error.toString())")
         }
     }
 }

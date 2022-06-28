@@ -45,6 +45,7 @@ class MenuItemModel: ObservableObject {
         
         let manifistPath = url.appendingPathComponent("manifist").appendingPathExtension("json")
         if !FileManager.default.fileExists(atPath: manifistPath.path) {
+            try FileManager.default.removeItem(at: url)
             throw MenuBarError.manifistFileNotFound
         }
         

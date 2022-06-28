@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "MenuItemModel.loadItem(url:):MenuItemModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "manifistPath.path">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MenuItemModel.init():MenuItemModel.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,12 +19,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MenuItemModel.loadItem(url:):MenuItemModel.swift">
+         contextName = "JSVMWithModuleCache.cachedModules.getter:MenuItemInterpreter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "manifistPath.path">
+               value = "self.cachedModules[&quot;menuBar&quot;]?.objectForKeyedSubscript(&quot;makeMenuItem&quot;)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuItemInterpreter.runScript(code:path:):MenuItemInterpreter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.jscontext.exception">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MenuItemModel.shared.unsafeMutableAddressor:MenuItemModel.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

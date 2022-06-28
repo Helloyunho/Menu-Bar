@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import os.log
+
+let logger = Logger()
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItems: [NSStatusItem]!
@@ -29,6 +32,8 @@ struct Menu_BarApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+        }.commands {
+            CommandGroup(replacing: .newItem, addition: { })
         }
     }
 }
