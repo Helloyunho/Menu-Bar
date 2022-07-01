@@ -9,20 +9,32 @@ import Foundation
 import JavaScriptCore
 import AppKit
 
-class MenuItemJS: NSObject, JSExport {
-    var statusItem: NSStatusItem
+@objc protocol MenuItemJSProtocol: JSExport {
+    init(_ length: CGFloat)
+
+    @objc func remove() -> Bool
+}
+
+class MenuItemJS: NSObject, MenuItemJSProtocol {
+    var statusItem: NSStatusItem?
     
-    init(item: NSStatusItem) {
-        self.statusItem = item
+    required init(_ length: CGFloat) {
+        self.statusItem = NSStatusBar.system.statusItem(withLength: length)
+    }
+
+    @objc func remove() -> Bool {
+        if let statusItem = statusItem {
+            NSStatusBar.system.removeStatusItem(statusItem)
+            return true
+        }
+        return false
     }
 }
 
 @objc protocol MenuBarJSProtocol: JSExport {
     var SQUARE_LENGTH: CGFloat { get }
     var VARIABLE_LENGTH: CGFloat { get }
-    
-    @objc func makeMenuItem(_ length: CGFloat) -> MenuItemJS
-    @objc func removeMenuItem(_ item: MenuItemJS)
+    var MenuItem: MenuItemJS.Type { get }
 }
 
 class MenuBarJS: NSObject, MenuBarJSProtocol {
@@ -32,13 +44,7 @@ class MenuBarJS: NSObject, MenuBarJSProtocol {
     dynamic var VARIABLE_LENGTH: CGFloat {
         return NSStatusItem.variableLength
     }
-    
-    @objc func makeMenuItem(_ length: CGFloat) -> MenuItemJS {
-        let item = NSStatusBar.system.statusItem(withLength: length)
-        return MenuItemJS(item: item)
-    }
-    
-    @objc func removeMenuItem(_ item: MenuItemJS) {
-        NSStatusBar.system.removeStatusItem(item.statusItem)
+    dynamic var MenuItem: MenuItemJS.Type {
+        return MenuItemJS.self
     }
 }

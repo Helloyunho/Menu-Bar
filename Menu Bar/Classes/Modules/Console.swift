@@ -8,12 +8,16 @@
 import Foundation
 import JavaScriptCore
 
-struct Console {
-    static let log: @convention(block) (JSValue?) -> Void = { value in
-        if value?.isUndefined ?? false {
-            logger.log("")
+@objc protocol ConsoleJSProtocol: JSExport {
+    @objc func log() -> Void
+}
+
+class ConsoleJS: NSObject, ConsoleJSProtocol {
+    @objc func log() {
+        if let args = JSContext.currentArguments() as? [JSValue?] {
+            logger.log("\(args.map { $0?.toString() ?? "" }.joined(separator: " "))")
         } else {
-            logger.log("\(value?.toString() ?? "")")
+            logger.log("")
         }
     }
 }

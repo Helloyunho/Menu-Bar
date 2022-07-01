@@ -10,12 +10,10 @@ import Foundation
 import JavaScriptCore
 
 class JSVMWithModuleCache: JSVirtualMachine {
-    var cachedModules: [String: Any] = [:]
-    
-    override init!() {
-        super.init()
-        cachedModules["menuBar"] = MenuBarJS()
-    }
+    var cachedModules: [String: JSValue] = [:]
+    var defaultModules: [String: JSExport] = [
+        "menuBar": MenuBarJS()
+    ]
 }
 
 class MenuItemInterpreter {
@@ -36,12 +34,12 @@ class MenuItemInterpreter {
         self.scriptDirURL = script.deletingLastPathComponent()
         
         let requireBlock: @convention(block) (String) -> (Any?) = { module in
-            if let cachedModule = vm.cachedModules[module] {
-                return cachedModule
+            if let defaultModule = vm.defaultModules[module] {
+                return defaultModule
             }
 
             let expandedModule = URL(fileURLWithPath: module, relativeTo: script.deletingLastPathComponent())
-            if let cachedModule = vm.cachedModules[module] {
+            if let cachedModule = vm.cachedModules[expandedModule.path] {
                 return cachedModule
             }
 
@@ -59,6 +57,7 @@ class MenuItemInterpreter {
 
         self.jscontext.globalObject.setObject([:], forKeyedSubscript: "exports")
         self.jscontext.globalObject.setObject(requireBlock, forKeyedSubscript: "require")
+        self.jscontext.globalObject.setObject(ConsoleJS(), forKeyedSubscript: "console")
     }
 
     func runScript(code: String, path: String) -> JSValue! {
