@@ -11,9 +11,7 @@ import JavaScriptCore
 
 class JSVMWithModuleCache: JSVirtualMachine {
     var cachedModules: [String: JSValue] = [:]
-    var defaultModules: [String: JSExport] = [
-        "menuBar": MenuBarJS()
-    ]
+    var defaultModules: [String: JSValue] = [:]
 }
 
 class MenuItemInterpreter {
@@ -32,6 +30,7 @@ class MenuItemInterpreter {
         self.jsVM = vm
         self.scriptURL = script
         self.scriptDirURL = script.deletingLastPathComponent()
+        self.jsVM.defaultModules = ["menuBar": MenuBarJSInit(context: self.jscontext)]
         
         let requireBlock: @convention(block) (String) -> (Any?) = { module in
             if let defaultModule = vm.defaultModules[module] {

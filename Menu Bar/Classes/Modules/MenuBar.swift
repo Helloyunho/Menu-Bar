@@ -10,7 +10,7 @@ import JavaScriptCore
 import AppKit
 
 @objc protocol MenuItemJSProtocol: JSExport {
-    init(_ length: CGFloat)
+    @objc init(_ length: CGFloat)
 
     @objc func remove() -> Bool
 }
@@ -18,7 +18,7 @@ import AppKit
 class MenuItemJS: NSObject, MenuItemJSProtocol {
     var statusItem: NSStatusItem?
     
-    required init(_ length: CGFloat) {
+    @objc required init(_ length: CGFloat) {
         self.statusItem = NSStatusBar.system.statusItem(withLength: length)
     }
 
@@ -31,20 +31,13 @@ class MenuItemJS: NSObject, MenuItemJSProtocol {
     }
 }
 
-@objc protocol MenuBarJSProtocol: JSExport {
-    var SQUARE_LENGTH: CGFloat { get }
-    var VARIABLE_LENGTH: CGFloat { get }
-    var MenuItem: MenuItemJS.Type { get }
-}
-
-class MenuBarJS: NSObject, MenuBarJSProtocol {
-    dynamic var SQUARE_LENGTH: CGFloat {
-        return NSStatusItem.squareLength
+func MenuBarJSInit(context: JSContext) -> JSValue {
+    let exported = JSValue(newObjectIn: context)!
+    exported.setObject(NSStatusItem.squareLength, forKeyedSubscript: "SQUARE_LENGTH")
+    exported.setObject(NSStatusItem.variableLength, forKeyedSubscript: "VARIABLE_LENGTH")
+    let constructor: @convention(block) (CGFloat) -> (MenuItemJS) = { length in
+        return MenuItemJS(length)
     }
-    dynamic var VARIABLE_LENGTH: CGFloat {
-        return NSStatusItem.variableLength
-    }
-    dynamic var MenuItem: MenuItemJS.Type {
-        return MenuItemJS.self
-    }
+    exported.setObject(constructor, forKeyedSubscript: "MenuItem")
+    return exported
 }

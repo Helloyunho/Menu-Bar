@@ -1,2 +1,5 @@
 const test = require('./test.js')
-throw Error(test.nice)
+const { VARIABLE_LENGTH, MenuItem } = require('menuBar')
+console.log(require('menuBar'))
+const menuItem = new MenuItem(VARIABLE_LENGTH)
+menuItem.remove()
